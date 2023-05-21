@@ -278,14 +278,9 @@ contract BrainPassCollectibles is ERC721, Ownable {
     ) public view returns (uint256) {
         PassType memory passType = passTypes[_passIdNum];
         uint256 duration = _endTimestamp.sub(_startTimestamp);
-        uint256 pricePerSecond = passType._pricePerMonth.div(30 days);
-        uint256 totalPrice = duration.mul(pricePerSecond);
-
+        uint256 totalPrice = duration.mul(passType._pricePerMonth);
         if (passType._discount > 0) {
-            uint256 discountAmount = totalPrice.mul(passType._discount).div(
-                100
-            );
-            totalPrice = totalPrice.sub(discountAmount);
+            totalPrice = totalPrice.sub(passType._discount);
         }
 
         return totalPrice;

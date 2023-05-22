@@ -159,9 +159,15 @@ import "@openzeppelin/utils/math/SafeMath.sol";
 /// @notice A pass for IQ Wiki Editors
 
 contract BrainPassCollectibles is ERC721, Ownable {
+    /// -----------------------------------------------------------------------
+    ///  Inheritances
+    /// -----------------------------------------------------------------------
     using SafeMath for uint256;
     using Counters for Counters.Counter;
 
+    /// -----------------------------------------------------------------------
+    /// Structs
+    /// -----------------------------------------------------------------------
     struct UserPassItem {
         uint256 _tokenId;
         uint256 _passId;
@@ -179,19 +185,25 @@ contract BrainPassCollectibles is ERC721, Ownable {
         uint256 _lastTokenIdMinted;
     }
 
+    /// -----------------------------------------------------------------------
+    /// Mappings
+    /// -----------------------------------------------------------------------
     mapping(uint256 => PassType) public passTypes;
     mapping(address => mapping(uint256 => UserPassItem))
         public addressToNFTPass;
 
-    // uint256 public constant MAX_SUPPLY = 3000;
+    /// -----------------------------------------------------------------------
+    /// Constants
+    /// -----------------------------------------------------------------------
     uint256 public constant MAX_PER_ADDRESS = 3;
 
+    /// -----------------------------------------------------------------------
+    /// Variables
+    /// -----------------------------------------------------------------------
     string public baseTokenURI;
     Counters.Counter private _tokenIds;
 
-    constructor(string memory baseURI) ERC721("BRAINY EDITOR PASS", "BEP") {
-        // setBaseURI(baseURI);
-    }
+    constructor() ERC721("BRAINY EDITOR PASS", "BEP") {}
 
     function _baseURI() internal view virtual override returns (string memory) {
         return baseTokenURI;

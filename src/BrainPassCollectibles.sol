@@ -193,7 +193,7 @@ contract BrainPassCollectibles is ERC721, Ownable {
         public addressToNFTPass;
 
     /// -----------------------------------------------------------------------
-    /// Constants
+    /// Constant
     /// -----------------------------------------------------------------------
     uint256 public constant MAX_PER_ADDRESS = 3;
 
@@ -203,6 +203,9 @@ contract BrainPassCollectibles is ERC721, Ownable {
     string public baseTokenURI;
     Counters.Counter private _tokenIds;
 
+    /// -----------------------------------------------------------------------
+    /// Constructor
+    /// -----------------------------------------------------------------------
     constructor() ERC721("BRAINY EDITOR PASS", "BEP") {}
 
     function _baseURI() internal view virtual override returns (string memory) {
@@ -233,6 +236,8 @@ contract BrainPassCollectibles is ERC721, Ownable {
             _discount,
             0
         );
+
+        emit NewPassAdded(_passId, _passSlug, _maxTokens, _pricePerMonth);
     }
 
     function mintNFT(
@@ -383,6 +388,10 @@ contract BrainPassCollectibles is ERC721, Ownable {
         require(success, "Transfer failed.");
     }
 
+    /// -----------------------------------------------------------------------
+    /// Events
+    /// -----------------------------------------------------------------------
+    
     event BrainPassBought(
         address indexed _owner,
         uint256 _tokenId,
@@ -395,5 +404,12 @@ contract BrainPassCollectibles is ERC721, Ownable {
         uint256 _tokenId,
         uint256 _startTimestamp,
         uint256 _newEndTimestamp
+    );
+
+    event NewPassAdded(
+        uint256 indexed _passId,
+        string _passSlug,
+        uint256 _maxtokens,
+        uint256 _pricePerMonth
     );
 }

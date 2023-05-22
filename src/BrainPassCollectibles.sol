@@ -131,7 +131,7 @@ contract BrainPassCollectibles is ERC721, Ownable {
         uint256 tokenId = passType._lastTokenIdMinted;
         bool success = IqToken.transfer(owner(), price);
         if (!success) revert MintingPaymentFailed();
-        
+
         setBaseURI(passType._tokenURI);
         _safeMint(msg.sender, tokenId);
 
@@ -207,7 +207,7 @@ contract BrainPassCollectibles is ERC721, Ownable {
         uint256 counter = 0;
         for (uint256 i = 0; i < passType._maxTokens; i++) {
             if (ownerOf(i) == _user) {
-                userTokens[counter] = i; //wroking on
+                userTokens[counter] = addressToNFTPass[msg.sender][i];
                 counter++;
             }
         }
